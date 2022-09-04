@@ -1,14 +1,17 @@
-import {on, EventType, StandardKeyboardEvent} from '@/core/events'
-import {
-    useSelection,
-    useCursor,
-    InputManager,
-    TextManager,
-    useSuggest,
-} from './managers'
+import {CursorComponent} from './cursor'
 import {Context} from './defs'
 import {BlurEvent} from './events'
-import {CursorComponent} from './cursor'
+import {
+    InputManager,
+    TextManager,
+    useCursor,
+    useSelection,
+    useSuggest,
+} from './managers'
+import styles from './textarea.module.scss'
+import {InputComponent} from '@/components/input'
+import {SuggestComponent} from '@/components/suggest'
+import {EventType, StandardKeyboardEvent, on} from '@/core/events'
 import {
     ClipboardEvent,
     CompositionEvent,
@@ -18,9 +21,7 @@ import {
     useEffect,
     useRef,
 } from 'react'
-import {SuggestComponent} from '@/components/suggest'
-import {Subscription, Observable} from 'rxjs'
-import styles from './textarea.module.scss'
+import {Observable, Subscription} from 'rxjs'
 
 export * from './events'
 export * from './managers'
@@ -108,6 +109,7 @@ export const TextContainerComponent = <T,>({
         isMouseDown.current = true
     }
     const onHostKeyDown = (e: KeyboardEvent) => {
+        console.log('on keydown')
         e.stopPropagation()
         const event = new StandardKeyboardEvent(e.nativeEvent)
         const finish = suggestMng.onKeydown(event)
@@ -193,7 +195,7 @@ export const TextContainerComponent = <T,>({
                 className={styles['selection-canvas']}
                 ref={selectionEl}
             ></canvas>
-            <textarea
+            {/* <textarea
                 ref={textareaEl}
                 className={`${styles['inputarea']} ${styles['input-text-cursor']}`}
                 wrap="off"
@@ -209,7 +211,8 @@ export const TextContainerComponent = <T,>({
                 height={cursorMng.cursorHeight}
                 x={cursorMng.cursor$.x}
                 y={cursorMng.cursor$.y}
-            ></CursorComponent>
+            ></CursorComponent> */}
+            <InputComponent></InputComponent>
             <SuggestComponent
                 show$={suggestMng.showSuggest$}
                 close$={() => suggestMng.setShowSuggest(false)}

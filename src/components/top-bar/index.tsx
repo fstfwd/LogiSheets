@@ -1,10 +1,10 @@
 import {SetAttrEvent} from './content'
-import {SelectedCell} from '@/components/canvas'
-import {MainMenuType, MainMenu} from './main-menu'
-import {useState, ReactElement, useEffect} from 'react'
-import styles from './top-bar.module.scss'
-import {FileComponent} from './file'
 import {StartComponent} from './content'
+import {FileComponent} from './file'
+import {MainMenu, MainMenuType} from './main-menu'
+import styles from './top-bar.module.scss'
+import {SelectedCell} from '@/components/canvas'
+import {ReactElement, useEffect, useState} from 'react'
 
 export interface TopBarProps {
     readonly selectedCell?: SelectedCell

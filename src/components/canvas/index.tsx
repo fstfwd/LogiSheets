@@ -1,35 +1,36 @@
-import {SelectedCell} from './events'
-import {Subscription, Subject} from 'rxjs'
 import styles from './canvas.module.scss'
-import {MouseEvent, ReactElement, useRef, useState, FC, WheelEvent} from 'react'
+import {ContextmenuComponent} from './contextmenu'
+import {Cell} from './defs'
+import {SelectedCell} from './events'
+import {InvalidFormulaComponent} from './invalid-formula'
 import {
+    SelectorChange,
+    StartCellEvent,
+    useDnd,
+    useHighlightCell,
+    useMatch,
+    useRender,
+    useResizers,
+    useScrollbar,
     useSelector,
     useStartCell,
-    useScrollbar,
-    useDnd,
     useText,
-    useRender,
-    useHighlightCell,
-    useResizers,
-    useMatch,
-    StartCellEvent,
-    SelectorChange,
 } from './widgets'
-import {Cell} from './defs'
-import {ScrollbarComponent} from '@/components/scrollbar'
-import {EventType, on} from '@/core/events'
-import {ContextmenuComponent} from './contextmenu'
-import {SelectorComponent} from '@/components/selector'
-import {ResizerComponent} from '@/components/resize'
-import {BlurEvent, TextContainerComponent} from '@/components/textarea'
-import {DndComponent} from '@/components/dnd'
-import {InvalidFormulaComponent} from './invalid-formula'
-import {Buttons} from '@/core'
 import {CellInputBuilder} from '@/api'
-import {DialogComponent} from '@/ui/dialog'
-import {useInjection} from '@/core/ioc/provider'
+import {DndComponent} from '@/components/dnd'
+import {ResizerComponent} from '@/components/resize'
+import {ScrollbarComponent} from '@/components/scrollbar'
+import {SelectorComponent} from '@/components/selector'
+import {BlurEvent, TextContainerComponent} from '@/components/textarea'
+import {Buttons} from '@/core'
 import {Backend, DataService, SheetService} from '@/core/data'
+import {EventType, on} from '@/core/events'
+import {useInjection} from '@/core/ioc/provider'
 import {TYPES} from '@/core/ioc/types'
+import {DialogComponent} from '@/ui/dialog'
+import {FC, MouseEvent, ReactElement, WheelEvent, useRef, useState} from 'react'
+import {Subject, Subscription} from 'rxjs'
+
 export const OFFSET = 100
 
 export interface CanvasProps {
@@ -242,7 +243,7 @@ export const CanvasComponent: FC<CanvasProps> = ({selectedCell$}) => {
                     focus$={focus$.current}
                 ></TextContainerComponent>
             ) : null}
-            {dndMng.range ? (
+            {/* {dndMng.range ? (
                 <DndComponent
                     dragging={dndMng.dragging !== undefined}
                     x={dndMng.range.startCol}
@@ -252,7 +253,7 @@ export const CanvasComponent: FC<CanvasProps> = ({selectedCell$}) => {
                     draggingX={dndMng.dragging?.startCol}
                     draggingY={dndMng.dragging?.startRow}
                 ></DndComponent>
-            ) : null}
+            ) : null} */}
             <DialogComponent
                 content={
                     <InvalidFormulaComponent
